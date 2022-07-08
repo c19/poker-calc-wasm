@@ -1,7 +1,7 @@
 [package]
-name = "{{project-name}}"
+name = "poker-calc-wasm"
 version = "0.1.0"
-authors = ["{{authors}}"]
+authors = ["c19"]
 edition = "2018"
 
 [lib]
@@ -12,6 +12,7 @@ default = ["console_error_panic_hook"]
 
 [dependencies]
 wasm-bindgen = "0.2.63"
+poker-calc = { version = "0.1.0", path = "../poker-calc" }
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
 # logging them with `console.error`. This is great for development, but requires
@@ -25,6 +26,7 @@ console_error_panic_hook = { version = "0.1.6", optional = true }
 #
 # Unfortunately, `wee_alloc` requires nightly Rust when targeting wasm for now.
 wee_alloc = { version = "0.4.5", optional = true }
+fastrand = "1.4.0"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3.13"
