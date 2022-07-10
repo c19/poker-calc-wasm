@@ -10,28 +10,52 @@ use wasm_bindgen::prelude::*;
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen]
-extern "C" {
-    fn alert(s: &str);
-}
-
-#[wasm_bindgen]
-pub fn greet() {
-    alert("Hello, poker-calc!");
-}
-
-#[wasm_bindgen]
-pub fn calc(hand_str: String, board_str: String) -> f64 {
-    let (left, right) = hand_str.split_at(2);
-    let hand = [Card::new(left), Card::new(right)];
-    let mut board = Vec::new();
-    if board_str.chars().count() == 10 {
-        board.push(Card::new(&board_str[0..2]));
-        board.push(Card::new(&board_str[2..4]));
-        board.push(Card::new(&board_str[4..8]));
-        board.push(Card::new(&board_str[8..10]));
-    }
+pub fn calc(
+    c1: i32,
+    s1: i32,
+    c2: i32,
+    s2: i32,
+    c3: i32,
+    s3: i32,
+    c4: i32,
+    s4: i32,
+    c5: i32,
+    s5: i32,
+    c6: i32,
+    s6: i32,
+    c7: i32,
+    s7: i32,
+    players: i32,
+    limit: i32,
+) -> f64 {
     let mut rng = fastrand::Rng::new();
-    let result = winrate::calc(&mut rng, hand, &board, 6, 1000000, false);
-    println!("{}", result);
+    let hand = [
+        Card::new_from_num(c1 as u8, s1 as u8),
+        Card::new_from_num(c2 as u8, s2 as u8),
+    ];
+    let mut board = vec![];
+    if c3 != 0 {
+        board.push(Card::new_from_num(c3 as u8, s3 as u8));
+    }
+    if c4 != 0 {
+        board.push(Card::new_from_num(c4 as u8, s4 as u8));
+    }
+    if c5 != 0 {
+        board.push(Card::new_from_num(c5 as u8, s5 as u8));
+    }
+    if c6 != 0 {
+        board.push(Card::new_from_num(c6 as u8, s6 as u8));
+    }
+    if c7 != 0 {
+        board.push(Card::new_from_num(c7 as u8, s7 as u8));
+    }
+    let result = winrate::calc(
+        &mut rng,
+        hand,
+        &board,
+        players as usize,
+        limit as usize,
+        false,
+    );
     return result;
 }
